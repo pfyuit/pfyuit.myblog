@@ -2,7 +2,7 @@ package com.pfyuit.myblog.dto;
 
 import com.pfyuit.myblog.domain.Blog;
 
-public class BlogDTO extends Blog {
+public class BlogDto extends Blog {
 
 	private String contentAbstract;
 

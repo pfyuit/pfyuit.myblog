@@ -1,6 +1,7 @@
 package com.pfyuit.myblog.security;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -12,17 +13,31 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.pfyuit.myblog.domain.User;
+import com.pfyuit.myblog.service.UserService;
 
 @Service
 public class AuthRealm extends AuthorizingRealm {
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
 		String principal = (String) arg0.getPrincipal();
 		String credential = new String((char[]) arg0.getCredentials());
-		if ((principal.equals("root") && credential.equals("apidoc123")) || (principal.equals("admin") && credential.equals("apidoc123"))
-				|| (principal.equals("user") && credential.equals("apidoc123"))) {
+
+		boolean isAuthenticated = false;
+		List<User> users = userService.findAll();
+		for (User user : users) {
+			if (user.getUserName().equals(principal) && user.getPassword().equals(credential)) {
+				isAuthenticated = true;
+			}
+		}
+		if (isAuthenticated) {
 			return new SimpleAuthenticationInfo(principal, credential, getName());
 		} else {
 			throw new UnknownAccountException();
@@ -32,26 +47,13 @@ public class AuthRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		String principal = (String) arg0.getPrimaryPrincipal();
-
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
-		if (principal.equals("root")) {
-			Set<String> roles = new HashSet<String>();
-			roles.add("Super Administrator");
-			info.setRoles(roles);
-			info.addStringPermission("resource:item:add,delete,update,view");
-		} else if (principal.equals("admin")) {
+		if (principal.equals("admin")) {
 			Set<String> roles = new HashSet<String>();
 			roles.add("Administrator");
 			info.setRoles(roles);
-			info.addStringPermission("resource:item:update,view");
-		} else if (principal.equals("user")) {
-			Set<String> roles = new HashSet<String>();
-			roles.add("Normal User");
-			info.setRoles(roles);
-			info.addStringPermission("resource:item:view");
+			info.addStringPermission("resource:item:add,delete,update,view");
 		}
-
 		return info;
 	}
 

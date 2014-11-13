@@ -42,88 +42,80 @@
 </head>
 
 <body>
-   <div class="navbar navbar-inverse" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">pfyuit.com</a>
-         </div>
-         <div class="collapse navbar-collapse">
-            <c:set var="home" value="Home"></c:set>
-            <c:set var="alumni" value="Alumni"></c:set>
-            <c:set var="about" value="About"></c:set>
-            <c:set var="newblog" value="NewBlog"></c:set>
-            <c:set var="admin" value="Admin"></c:set>
+	<div class="navbar navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">我的博客</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<c:set var="home" value="Home"></c:set>
+				<c:set var="about" value="About"></c:set>
+				<c:set var="newblog" value="NewBlog"></c:set>
+				<c:set var="admin" value="Admin"></c:set>
 
-            <ul class="nav navbar-nav">
-               <li <c:if test="${home==menu}">class="active"</c:if>><a href="${contextPath}/index.html"><span class="glyphicon glyphicon-home"></span> 博客主页</a></li>
-               <li <c:if test="${alumni==menu}">class="active"</c:if>><a href="${contextPath}/alumni.html"><span class="glyphicon glyphicon-picture"></span>&nbsp;相册</a></li>
-               <li <c:if test="${about==menu}">class="active"</c:if>><a href="${contextPath}/about.html"><span class="glyphicon glyphicon-user"></span>&nbsp;关于我</a></li>
-               <li <c:if test="${newblog==menu}">class="active"</c:if>><a href="${contextPath}/newblog.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;新建博客</a></li>
-               <li <c:if test="${admin==menu}">class="active"</c:if>><a href="${contextPath}/admin.html"><span class="glyphicon glyphicon-lock"></span>&nbsp;博客管理</a></li>
-            </ul>
+				<ul class="nav navbar-nav">
+					<li <c:if test="${home==menu}">class="active"</c:if>><a href="${contextPath}/index.html"><span class="glyphicon glyphicon-home"></span> 博客主页</a></li>
+					<li <c:if test="${about==menu}">class="active"</c:if>><a href="${contextPath}/about.html"><span class="glyphicon glyphicon-user"></span>&nbsp;关于我</a></li>
+					<shiro:user>
+						<li <c:if test="${newblog==menu}">class="active"</c:if>><a href="${contextPath}/newblog.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;新建博客</a></li>
+					</shiro:user>
+					<shiro:user>
+						<li <c:if test="${admin==menu}">class="active"</c:if>><a href="${contextPath}/admin.html"><span class="glyphicon glyphicon-lock"></span>&nbsp;博客管理</a></li>
+					</shiro:user>
+				</ul>
 
-            <form class="navbar-form navbar-right" role="form">
-               <div class="form-group">
-                  <input type="text" placeholder="Username" class="form-control">
-               </div>
-               <div class="form-group">
-                  <input type="password" placeholder="Password" class="form-control">
-               </div>
-               <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</button>
-            </form>
+				<shiro:guest>
+					<form class="navbar-form navbar-right" role="form" action="${contextPath}/login.html" method="post">
+						<div class="form-group">
+							<input name="username" type="text" placeholder="Username" class="form-control">
+						</div>
+						<div class="form-group">
+							<input name="password" type="password" placeholder="Password" class="form-control">
+						</div>
+						<button type="submit" class="btn btn-success">
+							<span class="glyphicon glyphicon-log-in"></span>&nbsp;登录
+						</button>
+					</form>
+				</shiro:guest>
 
-            <form class="navbar-form navbar-right">
-               <div class="form-group" style="margin-top: 6px">
-                  <shiro:user>
-                     <li><font color="#777"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Welcome [<shiro:principal />], </font> <a href="${contextPath}/logout.html">退出</a></li>
-                  </shiro:user>
-               </div>
-            </form>
+				<form class="navbar-form navbar-right">
+					<div class="form-group" style="margin-top: 6px">
+						<shiro:user>
+							<li><font color="#777"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Welcome [<shiro:principal />], </font> <a href="${contextPath}/logout.html">退出</a></li>
+						</shiro:user>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-         </div>
+	<div class="container">
+		<div class="row row-offcanvas row-offcanvas-right">
+			<div class="col-xs-6 col-md-3 sidebar-offcanvas" id="sidebar" role="navigation">
+				<jsp:include page="/navigator.html"></jsp:include>
+			</div>
+			<div class="col-xs-12 col-md-9">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<sitemesh:write property='title' />
+					</div>
+					<div class="panel-body">
+						<sitemesh:write property='body' />
+					</div>
+				</div>
+			</div>
+		</div>
 
-
-      </div>
-   </div>
-
-   <div class="container">
-
-      <div class="row row-offcanvas row-offcanvas-right">
-
-         <div class="col-xs-6 col-md-3 sidebar-offcanvas" id="sidebar" role="navigation">
-            <jsp:include page="/navigator.html"></jsp:include>
-         </div>
-
-         <div class="col-xs-12 col-md-9">
-
-            <div class="panel panel-info">
-               <div class="panel-heading">
-                  <sitemesh:write property='title' />
-               </div>
-               <div class="panel-body">
-                  <sitemesh:write property='body' />
-               </div>
-            </div>
-
-         </div>
-
-      </div>
-
-      <hr>
-
-      <footer>
-         <p>
-            Powered by Myblog by <a href="mailto:pfyuit@gmail.com">pfyuit@gmail.com</a>. All rights reserved.
-         </p>
-      </footer>
-
-   </div>
+		<hr>
+		<footer>
+			<p>
+				Powered by Myblog by <a href="mailto:pfyuit@gmail.com">pfyuit@gmail.com</a>. All rights reserved.
+			</p>
+		</footer>
+	</div>
 
 </body>
 </html>

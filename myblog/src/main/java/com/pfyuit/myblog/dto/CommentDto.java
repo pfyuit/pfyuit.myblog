@@ -2,7 +2,7 @@ package com.pfyuit.myblog.dto;
 
 import com.pfyuit.myblog.domain.Comment;
 
-public class CommentDTO extends Comment {
+public class CommentDto extends Comment {
 
 	private int blogid;
 

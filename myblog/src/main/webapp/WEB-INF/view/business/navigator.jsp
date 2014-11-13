@@ -12,26 +12,26 @@
 </head>
 <body>
 
-   <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-tags"></span>&nbsp;文章分类</a>
-      <c:forEach var="category" items="${categories}">
-         <a href="#" class="list-group-item">${category.name} (23)</a>
-      </c:forEach>
-   </div>
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-tags"></span>&nbsp;文章分类</a>
+		<c:forEach var="category" items="${categories}">
+			<a href="#" class="list-group-item">${category.name} (23)</a>
+		</c:forEach>
+	</div>
 
-   <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a>
-      <c:forEach var="archive" items="${archives}">
-         <a href="#" class="list-group-item">${archive} (23)</a>
-      </c:forEach>
-   </div>
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a>
+		<c:forEach var="archive" items="${archives}">
+			<a href="#" class="list-group-item">${archive} (23)</a>
+		</c:forEach>
+	</div>
 
-   <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-link"></span>&nbsp;项目链接</a>
-      <c:forEach var="link" items="${links}">
-         <a href="${link.url}" class="list-group-item">${link.name}</a>
-      </c:forEach>
-   </div>
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-link"></span>&nbsp;项目链接</a>
+		<c:forEach var="link" items="${links}">
+			<a href="${link.url}" class="list-group-item">${link.name}</a>
+		</c:forEach>
+	</div>
 
 </body>
 </html>

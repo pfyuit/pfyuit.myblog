@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.domain.Category;
-import com.pfyuit.myblog.dto.BlogDTO;
+import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.service.BlogService;
 import com.pfyuit.myblog.service.CategoryService;
 import com.pfyuit.myblog.service.LinkService;
 import com.pfyuit.myblog.service.UserService;
 
 @Controller
-public class IndexController {
+public class PageController {
 
 	@Autowired
 	private BlogService blogService;
@@ -36,27 +36,27 @@ public class IndexController {
 	@RequestMapping("/index")
 	public ModelAndView index() {
 		List<Blog> blogs = blogService.findAll();
-		List<BlogDTO> blogDTOs = new ArrayList<BlogDTO>();
+		List<BlogDto> blogDtos = new ArrayList<BlogDto>();
 		for (Blog blog : blogs) {
-			BlogDTO blogDTO = new BlogDTO();
-			blogDTO.setBlogid(blog.getBlogid());
-			blogDTO.setAuthor(blog.getAuthor());
-			blogDTO.setCategory(blog.getCategory());
-			blogDTO.setComments(blog.getComments());
-			blogDTO.setContent(blog.getContent());
-			blogDTO.setCreateDate(blog.getCreateDate());
-			blogDTO.setLastModified(blog.getLastModified());
-			blogDTO.setOriginal(blog.isOriginal());
-			blogDTO.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-			blogDTO.setTitle(blog.getTitle());
-			blogDTO.setCommentCount(blogDTO.getComments().size() == 0 ? "0" : String.valueOf(blogDTO.getComments().size()));
-			blogDTO.setContentAbstract(getAbstract(blogDTO.getContent()));
-			blogDTOs.add(blogDTO);
+			BlogDto blogDto = new BlogDto();
+			blogDto.setBlogid(blog.getBlogid());
+			blogDto.setAuthor(blog.getAuthor());
+			blogDto.setCategory(blog.getCategory());
+			blogDto.setComments(blog.getComments());
+			blogDto.setContent(blog.getContent());
+			blogDto.setCreateDate(blog.getCreateDate());
+			blogDto.setLastModified(blog.getLastModified());
+			blogDto.setOriginal(blog.isOriginal());
+			blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
+			blogDto.setTitle(blog.getTitle());
+			blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
+			blogDto.setContentAbstract(getAbstract(blogDto.getContent()));
+			blogDtos.add(blogDto);
 		}
 
 		ModelAndView view = new ModelAndView();
 		view.addObject("menu", "Home");
-		view.addObject("blogs", blogDTOs);
+		view.addObject("blogs", blogDtos);
 		view.setViewName("/business/content");
 		return view;
 	}
@@ -71,13 +71,6 @@ public class IndexController {
 		return result;
 	}
 
-	@RequestMapping("/alumni")
-	public ModelAndView alumni() {
-		ModelAndView view = new ModelAndView();
-		// TODO
-		return view;
-	}
-
 	@RequestMapping("/about")
 	public ModelAndView about() {
 		ModelAndView view = new ModelAndView();
@@ -87,7 +80,7 @@ public class IndexController {
 	}
 
 	@RequestMapping("/newblog")
-	public ModelAndView newblog() {
+	public ModelAndView newBlog() {
 		List<Category> categories = categoryService.findAll();
 
 		ModelAndView view = new ModelAndView();
@@ -98,9 +91,8 @@ public class IndexController {
 	}
 
 	@RequestMapping("/updateblog")
-	public ModelAndView updateblog(@RequestParam String blogid) {
+	public ModelAndView updateBlog(@RequestParam String blogid) {
 		Blog blog = blogService.find(Integer.parseInt(blogid));
-
 		List<Category> categories = categoryService.findAll();
 
 		ModelAndView view = new ModelAndView();
@@ -113,11 +105,11 @@ public class IndexController {
 	@RequestMapping("/navigator")
 	public ModelAndView navigator() {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/business/navigator");
 		view.addObject("user", userService.findAll().get(0));
 		view.addObject("categories", categoryService.findAll());
-		view.addObject("archives", Arrays.asList(new String[] { "2014年1月", "2014年2月" }));
+		view.addObject("archives", Arrays.asList(new String[] { "2014-1", "2014-2" }));//FIXME
 		view.addObject("links", linkService.findAll());
+		view.setViewName("/business/navigator");
 		return view;
 	}
 
@@ -125,6 +117,16 @@ public class IndexController {
 	public ModelAndView content() {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/business/content");
+		return view;
+	}
+	
+	@RequestMapping("/authen")
+	public ModelAndView login(@RequestParam(value="messages",required=false) String messages) {
+		ModelAndView view = new ModelAndView();
+		if(messages != null && !messages.isEmpty()){
+			view.addObject("messages", messages);
+		}
+		view.setViewName("/business/authen");
 		return view;
 	}
 

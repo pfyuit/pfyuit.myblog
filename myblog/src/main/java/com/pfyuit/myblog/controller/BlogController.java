@@ -12,22 +12,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.domain.Category;
-import com.pfyuit.myblog.dto.BlogDTO;
+import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.service.BlogService;
 import com.pfyuit.myblog.service.CategoryService;
 
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-	
+
 	@Autowired
 	private BlogService blogService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@RequestMapping("/create")
-	public ModelAndView newblog(BlogDTO blog) {
+	public ModelAndView createBlog(BlogDto blog) {
 		Blog blogPO = new Blog();
 		blogPO.setAuthor(blog.getAuthor());
 		Category category = categoryService.findByName(blog.getCategoryName());
@@ -38,34 +38,34 @@ public class BlogController {
 		blogPO.setCreateDate(new Date());
 		blogPO.setReadCount(new Long(0).longValue());
 		blogService.save(blogPO);
-		
+
 		List<Blog> blogs = blogService.findAll();
-		List<BlogDTO> blogDTOs = new ArrayList<BlogDTO>();
+		List<BlogDto> blogDtos = new ArrayList<BlogDto>();
 		for (Blog b : blogs) {
-			BlogDTO blogDTO = new BlogDTO();
-			blogDTO.setBlogid(b.getBlogid());
-			blogDTO.setAuthor(b.getAuthor());
-			blogDTO.setCategory(b.getCategory());
-			blogDTO.setComments(b.getComments());
-			blogDTO.setContent(b.getContent());
-			blogDTO.setCreateDate(b.getCreateDate());
-			blogDTO.setLastModified(b.getLastModified());
-			blogDTO.setOriginal(b.isOriginal());
-			blogDTO.setReadCount(b.getReadCount() == 0 ? 0 : b.getReadCount());
-			blogDTO.setTitle(b.getTitle());
-			blogDTO.setCommentCount(blogDTO.getComments().size() == 0 ? "0" : String.valueOf(blogDTO.getComments().size()));
-			blogDTO.setContentAbstract(IndexController.getAbstract(blogDTO.getContent()));
-			blogDTOs.add(blogDTO);
+			BlogDto blogDto = new BlogDto();
+			blogDto.setBlogid(b.getBlogid());
+			blogDto.setAuthor(b.getAuthor());
+			blogDto.setCategory(b.getCategory());
+			blogDto.setComments(b.getComments());
+			blogDto.setContent(b.getContent());
+			blogDto.setCreateDate(b.getCreateDate());
+			blogDto.setLastModified(b.getLastModified());
+			blogDto.setOriginal(b.isOriginal());
+			blogDto.setReadCount(b.getReadCount() == 0 ? 0 : b.getReadCount());
+			blogDto.setTitle(b.getTitle());
+			blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
+			blogDto.setContentAbstract(PageController.getAbstract(blogDto.getContent()));
+			blogDtos.add(blogDto);
 		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("blogs", blogDTOs);
-		mav.addObject("message", "Blog saved succesfully");
+		mav.addObject("blogs", blogDtos);
+		mav.addObject("message", "Blog Saved Succesfully");
 		mav.setViewName("/business/content");
 		return mav;
 	}
-	
+
 	@RequestMapping("/update")
-	public ModelAndView update(BlogDTO blog) {
+	public ModelAndView updateBlog(BlogDto blog) {
 		Blog blogPO = blogService.find(blog.getBlogid());
 		blogPO.setAuthor(blog.getAuthor());
 		Category category = categoryService.findByName(blog.getCategoryName());
@@ -75,53 +75,53 @@ public class BlogController {
 		blogPO.setTitle(blog.getTitle());
 		blogPO.setLastModified(new Date());
 		blogService.update(blogPO);
-		
+
 		List<Blog> blogs = blogService.findAll();
-		List<BlogDTO> blogDTOs = new ArrayList<BlogDTO>();
+		List<BlogDto> blogDtos = new ArrayList<BlogDto>();
 		for (Blog b : blogs) {
-			BlogDTO blogDTO = new BlogDTO();
-			blogDTO.setBlogid(b.getBlogid());
-			blogDTO.setAuthor(b.getAuthor());
-			blogDTO.setCategory(b.getCategory());
-			blogDTO.setComments(b.getComments());
-			blogDTO.setContent(b.getContent());
-			blogDTO.setCreateDate(b.getCreateDate());
-			blogDTO.setLastModified(b.getLastModified());
-			blogDTO.setOriginal(b.isOriginal());
-			blogDTO.setReadCount(b.getReadCount() == 0 ? 0 : b.getReadCount());
-			blogDTO.setTitle(b.getTitle());
-			blogDTO.setCommentCount(blogDTO.getComments().size() == 0 ? "0" : String.valueOf(blogDTO.getComments().size()));
-			blogDTO.setContentAbstract(IndexController.getAbstract(blogDTO.getContent()));
-			blogDTOs.add(blogDTO);
+			BlogDto blogDto = new BlogDto();
+			blogDto.setBlogid(b.getBlogid());
+			blogDto.setAuthor(b.getAuthor());
+			blogDto.setCategory(b.getCategory());
+			blogDto.setComments(b.getComments());
+			blogDto.setContent(b.getContent());
+			blogDto.setCreateDate(b.getCreateDate());
+			blogDto.setLastModified(b.getLastModified());
+			blogDto.setOriginal(b.isOriginal());
+			blogDto.setReadCount(b.getReadCount() == 0 ? 0 : b.getReadCount());
+			blogDto.setTitle(b.getTitle());
+			blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
+			blogDto.setContentAbstract(PageController.getAbstract(blogDto.getContent()));
+			blogDtos.add(blogDto);
 		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("blogs", blogDTOs);
-		mav.addObject("message", "Blog updated succesfully");
+		mav.addObject("blogs", blogDtos);
+		mav.addObject("message", "Blog Updated Succesfully");
 		mav.setViewName("/business/content");
 		return mav;
 	}
-	
+
 	@RequestMapping("/view")
-	public ModelAndView viewblog(@RequestParam String blogid) {
-		Blog blog = blogService.find(Integer.parseInt(blogid));	
-		blog.setReadCount(blog.getReadCount()+1);
+	public ModelAndView viewBlog(@RequestParam String blogid) {
+		Blog blog = blogService.find(Integer.parseInt(blogid));
+		blog.setReadCount(blog.getReadCount() + 1);
 		blogService.update(blog);
-		
-		BlogDTO blogDTO = new BlogDTO();
-		blogDTO.setBlogid(blog.getBlogid());
-		blogDTO.setAuthor(blog.getAuthor());
-		blogDTO.setCategory(blog.getCategory());
-		blogDTO.setComments(blog.getComments());
-		blogDTO.setContent(blog.getContent());
-		blogDTO.setCreateDate(blog.getCreateDate());
-		blogDTO.setLastModified(blog.getLastModified());
-		blogDTO.setOriginal(blog.isOriginal());
-		blogDTO.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-		blogDTO.setTitle(blog.getTitle());
-		blogDTO.setCommentCount(blogDTO.getComments().size() == 0 ? "0" : String.valueOf(blogDTO.getComments().size()));
+
+		BlogDto blogDto = new BlogDto();
+		blogDto.setBlogid(blog.getBlogid());
+		blogDto.setAuthor(blog.getAuthor());
+		blogDto.setCategory(blog.getCategory());
+		blogDto.setComments(blog.getComments());
+		blogDto.setContent(blog.getContent());
+		blogDto.setCreateDate(blog.getCreateDate());
+		blogDto.setLastModified(blog.getLastModified());
+		blogDto.setOriginal(blog.isOriginal());
+		blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
+		blogDto.setTitle(blog.getTitle());
+		blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
 
 		ModelAndView view = new ModelAndView();
-		view.addObject("blog", blogDTO);
+		view.addObject("blog", blogDto);
 		view.setViewName("/business/viewblog");
 		return view;
 	}

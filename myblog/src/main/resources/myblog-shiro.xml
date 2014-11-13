@@ -15,14 +15,18 @@
 	<!-- Configuration for Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/signin.html" />
+		<property name="loginUrl" value="/authen.html" />
 		<property name="successUrl" value="/index.html" />
 		<property name="unauthorizedUrl" value="/unauthorized.html" />
 		<property name="filterChainDefinitions">
 			<value>
 				/static/**=anon
+				/authen.html=anon
 				/index.html=anon
 				/about.html=anon
+				/newblog.html=user
+				/updateblog.html=user
+				/admin.html=user
 			</value>
 		</property>
 	</bean>

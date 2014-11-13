@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.domain.Comment;
-import com.pfyuit.myblog.dto.BlogDTO;
-import com.pfyuit.myblog.dto.CommentDTO;
+import com.pfyuit.myblog.dto.BlogDto;
+import com.pfyuit.myblog.dto.CommentDto;
 import com.pfyuit.myblog.service.BlogService;
 import com.pfyuit.myblog.service.CommentService;
 
@@ -25,7 +25,7 @@ public class CommentController {
 	private BlogService blogService;
 	
 	@RequestMapping("/create")
-	public ModelAndView create(CommentDTO comment) {
+	public ModelAndView create(CommentDto comment) {
 		Blog blog = blogService.find(comment.getBlogid());
 		Comment commentPO = new Comment();
 		commentPO.setAuthor(comment.getAuthor());
@@ -34,22 +34,22 @@ public class CommentController {
 		commentPO.setCreateTime(new Date());
 		commentService.save(commentPO);
 
-		BlogDTO blogDTO = new BlogDTO();
+		BlogDto blogDto = new BlogDto();
 		blog = blogService.find(comment.getBlogid());
-		blogDTO.setBlogid(blog.getBlogid());
-		blogDTO.setAuthor(blog.getAuthor());
-		blogDTO.setCategory(blog.getCategory());
-		blogDTO.setComments(blog.getComments());
-		blogDTO.setContent(blog.getContent());
-		blogDTO.setCreateDate(blog.getCreateDate());
-		blogDTO.setLastModified(blog.getLastModified());
-		blogDTO.setOriginal(blog.isOriginal());
-		blogDTO.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-		blogDTO.setTitle(blog.getTitle());
-		blogDTO.setCommentCount(blogDTO.getComments().size() == 0 ? "0" : String.valueOf(blogDTO.getComments().size()));
+		blogDto.setBlogid(blog.getBlogid());
+		blogDto.setAuthor(blog.getAuthor());
+		blogDto.setCategory(blog.getCategory());
+		blogDto.setComments(blog.getComments());
+		blogDto.setContent(blog.getContent());
+		blogDto.setCreateDate(blog.getCreateDate());
+		blogDto.setLastModified(blog.getLastModified());
+		blogDto.setOriginal(blog.isOriginal());
+		blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
+		blogDto.setTitle(blog.getTitle());
+		blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
 
 		ModelAndView view = new ModelAndView();
-		view.addObject("blog", blogDTO);
+		view.addObject("blog", blogDto);
 		view.setViewName("/business/viewblog");
 		return view;
 	}
