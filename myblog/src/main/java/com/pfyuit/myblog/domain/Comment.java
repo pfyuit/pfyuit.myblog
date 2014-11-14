@@ -1,6 +1,6 @@
 package com.pfyuit.myblog.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +14,7 @@ public class Comment {
 	@Id
 	private int commentid;
 
-	private Date createTime;
+	private Timestamp createTime;
 	
 	private String author;
 	
@@ -24,11 +24,11 @@ public class Comment {
 	@JoinColumn(name = "blogid")
 	private Blog blog;
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

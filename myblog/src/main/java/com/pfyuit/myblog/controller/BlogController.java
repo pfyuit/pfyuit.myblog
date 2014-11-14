@@ -1,5 +1,6 @@
 package com.pfyuit.myblog.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ public class BlogController {
 		blogPO.setContent(blog.getContent());
 		blogPO.setOriginal(blog.isOriginal());
 		blogPO.setTitle(blog.getTitle());
-		blogPO.setCreateDate(new Date());
+		blogPO.setCreateDate(new Timestamp(new Date().getTime()));
 		blogPO.setReadCount(new Long(0).longValue());
 		blogService.save(blogPO);
 
@@ -73,7 +74,7 @@ public class BlogController {
 		blogPO.setContent(blog.getContent());
 		blogPO.setOriginal(blog.isOriginal());
 		blogPO.setTitle(blog.getTitle());
-		blogPO.setLastModified(new Date());
+		blogPO.setLastModified(new Timestamp(new Date().getTime()));
 		blogService.update(blogPO);
 
 		List<Blog> blogs = blogService.findAll();

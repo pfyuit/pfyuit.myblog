@@ -1,5 +1,6 @@
 package com.pfyuit.myblog.domain;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class Blog {
 	
 	private String author;
 	
-	private Date createDate;
+	private Timestamp createDate;
 	
-	private Date lastModified;
+	private Timestamp lastModified;
 	
 	private String content;
 	
@@ -53,19 +54,19 @@ public class Blog {
 		this.author = author;
 	}
 
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getLastModified() {
+	public Timestamp getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(Date lastModified) {
+	public void setLastModified(Timestamp lastModified) {
 		this.lastModified = lastModified;
 	}
 

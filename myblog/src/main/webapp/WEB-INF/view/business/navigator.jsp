@@ -15,14 +15,28 @@
 	<div class="list-group">
 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-tags"></span>&nbsp;文章分类</a>
 		<c:forEach var="category" items="${categories}">
-			<a href="#" class="list-group-item">${category.name} (23)</a>
+			<a href="${contextPath}/content.html?categoryid=${category.categoryid}" class="list-group-item">${category.name} (${category.blogCount})</a>
 		</c:forEach>
 	</div>
 
 	<div class="list-group">
 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a>
 		<c:forEach var="archive" items="${archives}">
-			<a href="#" class="list-group-item">${archive} (23)</a>
+			<a href="${contextPath}/content.html?createdate=${archive.month}" class="list-group-item">${archive.month} (${archive.blogCount})</a>
+		</c:forEach>
+	</div>
+
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-book"></span>&nbsp;阅读排行</a>
+		<c:forEach var="read" items="${reads}">
+			<a href="${contextPath}/blog/view.html?blogid=${read.blogid}" class="list-group-item">${read.title} (${read.count})</a>
+		</c:forEach>
+	</div>
+
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;评论排行</a>
+		<c:forEach var="comment" items="${comments}">
+			<a href="${contextPath}/blog/view.html?blogid=${comment.blogid}" class="list-group-item">${comment.title} (${comment.commentCount})</a>
 		</c:forEach>
 	</div>
 

@@ -1,21 +1,27 @@
 package com.pfyuit.myblog.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import org.springframework.context.annotation.Lazy;
 
 @Entity
 public class Category {
 
 	@Id
 	private int categoryid;
-	
+
 	private String name;
-	
-	private Date createTime;
+
+	private Timestamp createTime;
+
+	public int getCategoryid() {
+		return categoryid;
+	}
+
+	public void setCategoryid(int categoryid) {
+		this.categoryid = categoryid;
+	}
 
 	public String getName() {
 		return name;
@@ -25,11 +31,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

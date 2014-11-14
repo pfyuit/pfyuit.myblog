@@ -26,6 +26,10 @@ public class CategoryService {
 		categoryDAO.update(Category);
 	}
 	
+	public Category find(int id){
+		return categoryDAO.find(id);
+	}
+	
 	public Category findByName(String categoryName){
 		return categoryDAO.findByName(categoryName);
 	}

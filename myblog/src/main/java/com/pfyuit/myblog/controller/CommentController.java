@@ -1,5 +1,6 @@
 package com.pfyuit.myblog.controller;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class CommentController {
 		commentPO.setAuthor(comment.getAuthor());
 		commentPO.setBlog(blog);
 		commentPO.setContent(comment.getContent());
-		commentPO.setCreateTime(new Date());
+		commentPO.setCreateTime(new Timestamp(new Date().getTime()));
 		commentService.save(commentPO);
 
 		BlogDto blogDto = new BlogDto();
