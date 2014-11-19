@@ -9,20 +9,13 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
-	<!-- Import DAO configration -->
-	<import resource="classpath:/myblog-dao.xml" />
+	<!-- Configuration for ehcache -->
+	<bean id="ehcache"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="classpath:ehcache.xml" />
 
-	<!-- Import Service configuration -->
-	<import resource="classpath:/myblog-service.xml" />
-	
-	<!-- Import Cache configuration -->
-<!-- 	<import resource="classpath:/myblog-cache.xml"/> -->
-	
-	<!-- Import Apache Shiro Configuration -->
-	<import resource="classpath:/myblog-shiro.xml"/>
-	
-	<!-- Import EhCache Configuration -->
-	<import resource="classpath:/myblog-ehcache.xml"/>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+		p:cacheManager-ref="ehcache" />
 
 </beans>
   
