@@ -18,6 +18,12 @@
 			<a href="${contextPath}/content.html?categoryid=${category.categoryid}" class="list-group-item">${category.name} (${category.blogCount})</a>
 		</c:forEach>
 	</div>
+	
+	<form method="post" action="${contextPath}/search.html"  enctype="application/x-www-form-urlencoded; charset=UTF-8">
+		<input type="text" name="key" class="form-control"></input>
+		<p />
+		<input type="submit" class="btn btn-success" value="搜索博客"></input>
+	</form>
 
 	<div class="list-group">
 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a>

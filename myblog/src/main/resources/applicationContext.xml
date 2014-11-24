@@ -23,6 +23,9 @@
 	
 	<!-- Import EhCache Configuration -->
 	<import resource="classpath:/myblog-ehcache.xml"/>
+	
+	<!-- Import Solr Configuration -->
+	<import resource="classpath:/myblog-solr.xml"/>
 
 </beans>
   
