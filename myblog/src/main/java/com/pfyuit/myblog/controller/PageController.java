@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +71,7 @@ public class PageController {
 
 	public static String getAbstract(String content) {
 		String result = "";
+		content = Jsoup.parse(content).text();
 		if (content.length() > 500) {
 			result = content.substring(0, 500) + "...";
 		} else {
