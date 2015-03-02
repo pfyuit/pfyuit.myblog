@@ -12,24 +12,21 @@ import org.springframework.stereotype.Repository;
 import com.pfyuit.myblog.domain.Link;
 
 @Repository
-public class LinkDAO extends BaseDAO<Link> {
+public class LinkDao extends BaseDao<Link> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public LinkDAO() {
+	public LinkDao() {
 		super(Link.class);
 	}
 
 	@Cacheable("links")
 	public List<Link> findAll(){
-		Session session = sessionFactory.openSession();
-		session.getTransaction().begin();
+		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Link");
 		@SuppressWarnings("unchecked")
 		List<Link> result = query.list();
-		session.getTransaction().commit();
-		session.close();
 		return result;
 	}
 }

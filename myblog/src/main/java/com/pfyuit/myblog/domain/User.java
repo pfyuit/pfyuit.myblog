@@ -8,11 +8,11 @@ public class User {
 
 	@Id
 	private int userid;
-	
+
 	private String userName;
-	
+
 	private String password;
-	
+
 	private String notes;
 
 	public String getUserName() {

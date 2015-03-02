@@ -20,7 +20,7 @@
 
 	<p>
 		<c:forEach var="blog" items="${blogs}">
-			<a href="${contextPath}/blog/view.html?blogid=${blog.blogid}"><c:if test="${blog.isOriginal==true}">
+			<a href="${contextPath}/viewblog.html?blogid=${blog.blogid}"><c:if test="${blog.isOriginal==true}">
 					<span class="glyphicon glyphicon-bookmark"></span>&nbsp;</c:if><b>${blog.title}</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">分类( ${blog.category.name}) </a>
 			<br />
         		${blog.contentAbstract}

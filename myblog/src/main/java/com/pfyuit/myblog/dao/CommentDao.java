@@ -8,26 +8,23 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pfyuit.myblog.domain.Blog;
+import com.pfyuit.myblog.domain.Comment;
 
 @Repository
-public class BlogDAO extends BaseDAO<Blog> {
+public class CommentDao extends BaseDao<Comment> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public BlogDAO() {
-		super(Blog.class);
+	public CommentDao() {
+		super(Comment.class);
 	}
 
-	public List<Blog> findAll(){
-		Session session = sessionFactory.openSession();
-		session.getTransaction().begin();
-		Query query = session.createQuery("from Blog");
+	public List<Comment> findAll(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Comment");
 		@SuppressWarnings("unchecked")
-		List<Blog> result = query.list();
-		session.getTransaction().commit();
-		session.close();
+		List<Comment> result = query.list();
 		return result;
 	}
 }

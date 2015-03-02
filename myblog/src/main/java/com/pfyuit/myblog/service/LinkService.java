@@ -2,32 +2,16 @@ package com.pfyuit.myblog.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.pfyuit.myblog.dao.LinkDAO;
 import com.pfyuit.myblog.domain.Link;
 
-@Service
-public class LinkService {
-	
-	@Autowired
-	private LinkDAO linkDAO;
+public interface LinkService {
 
-	public void save(Link Link) {
-		linkDAO.save(Link);
-	}
+	public abstract void save(Link Link);
 
-	public void delete(Link Link) {
-		linkDAO.delete(Link);
-	}
+	public abstract void delete(Link Link);
 
-	public void update(Link Link) {
-		linkDAO.update(Link);
-	}
+	public abstract void update(Link Link);
 
-	public List<Link> findAll() {
-		return linkDAO.findAll();
-	}
+	public abstract List<Link> findAll();
 
 }

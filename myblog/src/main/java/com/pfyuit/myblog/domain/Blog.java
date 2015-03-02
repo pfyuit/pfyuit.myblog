@@ -1,7 +1,6 @@
 package com.pfyuit.myblog.domain;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,26 +15,26 @@ public class Blog {
 
 	@Id
 	private int blogid;
-	
+
 	private String title;
-	
+
 	private String author;
-	
+
 	private Timestamp createDate;
-	
+
 	private Timestamp lastModified;
-	
+
 	private String content;
-	
+
 	private String isOriginal;
-	
+
 	private Long readCount;
 
 	@ManyToOne(targetEntity = Category.class)
 	@JoinColumn(name = "categoryid")
 	private Category category;
-	
-	@OneToMany(mappedBy="blog",fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "blog", fetch = FetchType.EAGER)
 	private List<Comment> comments;
 
 	public String getTitle() {
@@ -125,7 +124,5 @@ public class Blog {
 	public void setIsOriginal(String isOriginal) {
 		this.isOriginal = isOriginal;
 	}
-	
-	
 
 }

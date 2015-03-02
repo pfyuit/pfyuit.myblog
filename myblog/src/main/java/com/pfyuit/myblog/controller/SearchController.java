@@ -12,11 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.dto.BlogDto;
+import com.pfyuit.myblog.dto.builder.BlogDtoBuilder;
 import com.pfyuit.myblog.search.ISearchService;
 import com.pfyuit.myblog.service.BlogService;
 
 @Controller
 public class SearchController {
+
 	@Autowired
 	private ISearchService searchService;
 
@@ -43,19 +45,7 @@ public class SearchController {
 		for (int blogId : blogIds) {
 			for (Blog blog : blogs) {
 				if (blog.getBlogid() == blogId) {
-					BlogDto blogDto = new BlogDto();
-					blogDto.setBlogid(blog.getBlogid());
-					blogDto.setAuthor(blog.getAuthor());
-					blogDto.setCategory(blog.getCategory());
-					blogDto.setComments(blog.getComments());
-					blogDto.setContent(blog.getContent());
-					blogDto.setCreateDate(blog.getCreateDate());
-					blogDto.setLastModified(blog.getLastModified());
-					blogDto.setOriginal(blog.isOriginal());
-					blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-					blogDto.setTitle(blog.getTitle());
-					blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
-					blogDto.setContentAbstract(PageController.getAbstract(blogDto.getContent()));
+					BlogDto blogDto = BlogDtoBuilder.buildBlogDto(blog);
 					blogDtos.add(blogDto);
 				}
 			}

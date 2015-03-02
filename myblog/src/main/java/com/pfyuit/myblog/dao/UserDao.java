@@ -11,23 +11,20 @@ import org.springframework.stereotype.Repository;
 import com.pfyuit.myblog.domain.User;
 
 @Repository
-public class UserDAO extends BaseDAO<User> {
+public class UserDao extends BaseDao<User> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public UserDAO() {
+	public UserDao() {
 		super(User.class);
 	}
 
 	public List<User> findAll() {
-		Session session = sessionFactory.openSession();
-		session.getTransaction().begin();
+		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from User");
 		@SuppressWarnings("unchecked")
 		List<User> result = query.list();
-		session.getTransaction().commit();
-		session.close();
 		return result;
 	}
 }

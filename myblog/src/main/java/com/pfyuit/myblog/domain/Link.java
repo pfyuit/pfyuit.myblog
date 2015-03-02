@@ -8,9 +8,9 @@ public class Link {
 
 	@Id
 	private int linkid;
-	
+
 	private String name;
-	
+
 	private String url;
 
 	public String getName() {

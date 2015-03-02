@@ -2,35 +2,21 @@ package com.pfyuit.myblog.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.pfyuit.myblog.dao.BlogDAO;
 import com.pfyuit.myblog.domain.Blog;
+import com.pfyuit.myblog.form.BlogForm;
 
-@Service
-public class BlogService {
+public interface BlogService {
 
-	@Autowired
-	private BlogDAO blogDAO;
+	public abstract void save(BlogForm blogForm);
 
-	public void save(Blog blog) {
-		blogDAO.save(blog);
-	}
+	public abstract void delete(Blog blog);
 
-	public void delete(Blog blog) {
-		blogDAO.delete(blog);
-	}
+	public abstract void update(BlogForm blogForm);
 
-	public void update(Blog blog) {
-		blogDAO.update(blog);
-	}
-	
-	public Blog find(int id){
-		return blogDAO.find(id);
-	}
+	public abstract void update(Blog blog);
 
-	public List<Blog> findAll() {
-		return blogDAO.findAll();
-	}
+	public abstract Blog find(int id);
+
+	public abstract List<Blog> findAll();
+
 }

@@ -10,17 +10,17 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Comment {
-	
+
 	@Id
 	private int commentid;
 
 	private Timestamp createTime;
-	
+
 	private String author;
-	
+
 	private String content;
-	
-	@ManyToOne(targetEntity = Blog.class,fetch=FetchType.EAGER)
+
+	@ManyToOne(targetEntity = Blog.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "blogid")
 	private Blog blog;
 
@@ -55,7 +55,5 @@ public class Comment {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
-	
-	
 
 }

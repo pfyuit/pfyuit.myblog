@@ -5,26 +5,24 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pfyuit.myblog.dto.LoginDto;
+import com.pfyuit.myblog.form.LoginForm;
 
-@Transactional
 @Controller
 public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView save(LoginDto data) {
+	public ModelAndView save(LoginForm loginForm) {
 		try {
 			Subject subject = SecurityUtils.getSubject();
-			UsernamePasswordToken token = new UsernamePasswordToken(data.getUsername(), data.getPassword());
+			UsernamePasswordToken token = new UsernamePasswordToken(loginForm.getUsername(), loginForm.getPassword());
 			subject.login(token);
 		} catch (AuthenticationException e) {
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/authen.html?messages=Authentication failed。Pease try again");
+			mav.setViewName("redirect:/authen.html?messages=Authentication failed");
 			return mav;
 		}
 

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,7 @@ import com.pfyuit.myblog.dto.ArchiveDto;
 import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.dto.CategoryDto;
 import com.pfyuit.myblog.dto.ReadDto;
+import com.pfyuit.myblog.dto.builder.BlogDtoBuilder;
 import com.pfyuit.myblog.service.BlogService;
 import com.pfyuit.myblog.service.CategoryService;
 import com.pfyuit.myblog.service.LinkService;
@@ -44,40 +44,13 @@ public class PageController {
 	@RequestMapping("/index")
 	public ModelAndView index() {
 		List<Blog> blogs = blogService.findAll();
-		List<BlogDto> blogDtos = new ArrayList<BlogDto>();
-		for (Blog blog : blogs) {
-			BlogDto blogDto = new BlogDto();
-			blogDto.setBlogid(blog.getBlogid());
-			blogDto.setAuthor(blog.getAuthor());
-			blogDto.setCategory(blog.getCategory());
-			blogDto.setComments(blog.getComments());
-			blogDto.setContent(blog.getContent());
-			blogDto.setCreateDate(blog.getCreateDate());
-			blogDto.setLastModified(blog.getLastModified());
-			blogDto.setOriginal(blog.isOriginal());
-			blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-			blogDto.setTitle(blog.getTitle());
-			blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
-			blogDto.setContentAbstract(getAbstract(blogDto.getContent()));
-			blogDtos.add(blogDto);
-		}
+		List<BlogDto> blogDtos = BlogDtoBuilder.buildBlogDtos(blogs);
 
 		ModelAndView view = new ModelAndView();
 		view.addObject("menu", "Home");
 		view.addObject("blogs", blogDtos);
 		view.setViewName("/business/content");
 		return view;
-	}
-
-	public static String getAbstract(String content) {
-		String result = "";
-		content = Jsoup.parse(content).text();
-		if (content.length() > 500) {
-			result = content.substring(0, 500) + "...";
-		} else {
-			result = content;
-		}
-		return result;
 	}
 
 	@RequestMapping("/about")
@@ -108,6 +81,20 @@ public class PageController {
 		view.addObject("blog", blog);
 		view.addObject("categories", categories);
 		view.setViewName("/business/updateblog");
+		return view;
+	}
+
+	@RequestMapping("/viewblog")
+	public ModelAndView viewBlog(@RequestParam String blogid) {
+		Blog blog = blogService.find(Integer.parseInt(blogid));
+		blog.setReadCount(blog.getReadCount() + 1);
+		blogService.update(blog);
+
+		BlogDto blogDto = BlogDtoBuilder.buildBlogDto(blog);
+
+		ModelAndView view = new ModelAndView();
+		view.addObject("blog", blogDto);
+		view.setViewName("/business/viewblog");
 		return view;
 	}
 
@@ -143,7 +130,7 @@ public class PageController {
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			archives.add(new ArchiveDto(entry.getKey(), entry.getValue()));
 		}
-		
+
 		List<ReadDto> readDtos = new ArrayList<ReadDto>();
 		List<ReadDto> readDtos1 = new ArrayList<ReadDto>();
 		for (Blog blog : blogs) {
@@ -155,24 +142,24 @@ public class PageController {
 			readDtos.add(readDto);
 			readDtos1.add(readDto);
 		}
-		Collections.sort(readDtos, new Comparator<ReadDto>(){
+		Collections.sort(readDtos, new Comparator<ReadDto>() {
 			@Override
 			public int compare(ReadDto o1, ReadDto o2) {
-				return (int)(o2.getCount()-o1.getCount());
+				return (int) (o2.getCount() - o1.getCount());
 			}
 		});
-		if(readDtos.size()<=10){
+		if (readDtos.size() <= 10) {
 			readDtos = readDtos.subList(0, readDtos.size());
 			readDtos1 = readDtos1.subList(0, readDtos1.size());
 		} else {
 			readDtos = readDtos.subList(0, 10);
 			readDtos1 = readDtos1.subList(0, 10);
 		}
-			
-		Collections.sort(readDtos1, new Comparator<ReadDto>(){
+
+		Collections.sort(readDtos1, new Comparator<ReadDto>() {
 			@Override
 			public int compare(ReadDto o1, ReadDto o2) {
-				return (int)(o2.getCommentCount()-o1.getCommentCount());
+				return (int) (o2.getCommentCount() - o1.getCommentCount());
 			}
 		});
 
@@ -207,19 +194,7 @@ public class PageController {
 			if (createDate != null && !new SimpleDateFormat("yyyy-MM").format(blog.getCreateDate()).equals(createDate)) {
 				continue;
 			}
-			BlogDto blogDto = new BlogDto();
-			blogDto.setBlogid(blog.getBlogid());
-			blogDto.setAuthor(blog.getAuthor());
-			blogDto.setCategory(blog.getCategory());
-			blogDto.setComments(blog.getComments());
-			blogDto.setContent(blog.getContent());
-			blogDto.setCreateDate(blog.getCreateDate());
-			blogDto.setLastModified(blog.getLastModified());
-			blogDto.setOriginal(blog.isOriginal());
-			blogDto.setReadCount(blog.getReadCount() == 0 ? 0 : blog.getReadCount());
-			blogDto.setTitle(blog.getTitle());
-			blogDto.setCommentCount(blogDto.getComments().size() == 0 ? "0" : String.valueOf(blogDto.getComments().size()));
-			blogDto.setContentAbstract(getAbstract(blogDto.getContent()));
+			BlogDto blogDto = BlogDtoBuilder.buildBlogDto(blog);
 			blogDtos.add(blogDto);
 		}
 
