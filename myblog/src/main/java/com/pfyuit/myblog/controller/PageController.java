@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -104,7 +105,14 @@ public class PageController {
 		List<Blog> blogs = blogService.findAll();
 
 		List<ArchiveDto> archives = new ArrayList<ArchiveDto>();
-		List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+
+		Collections.sort(categories, new Comparator<Category>() {
+			@Override
+			public int compare(Category o1, Category o2) {
+				return o1.getSortId() - o2.getSortId();
+			}
+		});
+		List<CategoryDto> categoryDtos = new LinkedList<CategoryDto>();
 		for (Category category : categories) {
 			CategoryDto categoryDto = new CategoryDto();
 			categoryDto.setCategoryid(category.getCategoryid());

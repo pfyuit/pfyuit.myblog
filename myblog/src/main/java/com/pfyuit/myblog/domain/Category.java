@@ -2,6 +2,7 @@ package com.pfyuit.myblog.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,6 +15,9 @@ public class Category {
 	private String name;
 
 	private Timestamp createTime;
+
+	@Column(name = "sort_id")
+	private int sortId;
 
 	public int getCategoryid() {
 		return categoryid;
@@ -37,6 +41,14 @@ public class Category {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
+	}
+
+	public int getSortId() {
+		return sortId;
+	}
+
+	public void setSortId(int sortId) {
+		this.sortId = sortId;
 	}
 
 }
