@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import com.pfyuit.myblog.datasource.CustomContextHolder;
 import com.pfyuit.myblog.domain.Category;
 
 @Repository
@@ -24,6 +25,7 @@ public class CategoryDao extends BaseDao<Category> {
 	@SuppressWarnings("unchecked")
 	@Cacheable("categoryByName")
 	public Category findByName(String categoryName) {
+		CustomContextHolder.setCustomType(CustomContextHolder.CUSTOM_SLAVE_TYPE);
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Category where name=?");
 		query.setString(0, categoryName);
@@ -34,6 +36,7 @@ public class CategoryDao extends BaseDao<Category> {
 
 	@Cacheable("categories")
 	public List<Category> findAll() {
+		CustomContextHolder.setCustomType(CustomContextHolder.CUSTOM_SLAVE_TYPE);
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Category");
 		@SuppressWarnings("unchecked")
