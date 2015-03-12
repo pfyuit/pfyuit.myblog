@@ -36,7 +36,7 @@
 		<property name="password" value="${jdbc.db.myblog.readonly.password}" />
 	</bean>
 	
-	<bean id="dataSource" class="com.pfyuit.myblog.datasource.CustomRoutingDataSource">
+	<bean id="dataSource" class="com.pfyuit.myblog.datasource.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<entry key="MASTER" value-ref="masterDataSource"/>

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
-import com.pfyuit.myblog.datasource.CustomContextHolder;
 import com.pfyuit.myblog.domain.Link;
 
 @Repository
@@ -24,7 +23,6 @@ public class LinkDao extends BaseDao<Link> {
 
 	@Cacheable("links")
 	public List<Link> findAll(){
-		CustomContextHolder.setCustomType(CustomContextHolder.CUSTOM_SLAVE_TYPE);
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Link");
 		@SuppressWarnings("unchecked")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pfyuit.myblog.datasource.DynamicDataSourceContextHolder;
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.dto.builder.BlogDtoBuilder;
@@ -26,6 +27,7 @@ public class BlogController {
 
 	@RequestMapping("/create")
 	public ModelAndView createBlog(BlogForm blogForm) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_MASTER_TYPE);
 		blogService.save(blogForm);
 
 		List<Blog> blogs = blogService.findAll();
@@ -40,6 +42,7 @@ public class BlogController {
 
 	@RequestMapping("/update")
 	public ModelAndView updateBlog(BlogForm blogForm) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_MASTER_TYPE);
 		blogService.update(blogForm);
 
 		List<Blog> blogs = blogService.findAll();

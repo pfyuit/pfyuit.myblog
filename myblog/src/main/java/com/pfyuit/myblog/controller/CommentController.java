@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pfyuit.myblog.datasource.DynamicDataSourceContextHolder;
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.dto.builder.BlogDtoBuilder;
@@ -24,6 +25,7 @@ public class CommentController {
 
 	@RequestMapping("/create")
 	public ModelAndView create(CommentForm commentForm) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_MASTER_TYPE);
 		commentService.save(commentForm);
 
 		Blog blog = blogService.find(commentForm.getBlogid());

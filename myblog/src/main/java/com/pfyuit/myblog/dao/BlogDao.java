@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pfyuit.myblog.datasource.CustomContextHolder;
 import com.pfyuit.myblog.domain.Blog;
 
 @Repository
@@ -22,7 +21,6 @@ public class BlogDao extends BaseDao<Blog> {
 	}
 
 	public List<Blog> findAll(){
-		CustomContextHolder.setCustomType(CustomContextHolder.CUSTOM_SLAVE_TYPE);
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Blog");
 		@SuppressWarnings("unchecked")

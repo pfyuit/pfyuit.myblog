@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pfyuit.myblog.datasource.DynamicDataSourceContextHolder;
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.domain.Category;
 import com.pfyuit.myblog.dto.ArchiveDto;
@@ -44,6 +45,7 @@ public class PageController {
 
 	@RequestMapping("/index")
 	public ModelAndView index() {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);
 		List<Blog> blogs = blogService.findAll();
 		List<BlogDto> blogDtos = BlogDtoBuilder.buildBlogDtos(blogs);
 
@@ -64,6 +66,7 @@ public class PageController {
 
 	@RequestMapping("/newblog")
 	public ModelAndView newBlog() {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);
 		List<Category> categories = categoryService.findAll();
 
 		ModelAndView view = new ModelAndView();
@@ -75,6 +78,7 @@ public class PageController {
 
 	@RequestMapping("/updateblog")
 	public ModelAndView updateBlog(@RequestParam String blogid) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);
 		Blog blog = blogService.find(Integer.parseInt(blogid));
 		List<Category> categories = categoryService.findAll();
 
@@ -87,6 +91,7 @@ public class PageController {
 
 	@RequestMapping("/viewblog")
 	public ModelAndView viewBlog(@RequestParam String blogid) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_MASTER_TYPE);
 		Blog blog = blogService.find(Integer.parseInt(blogid));
 		blog.setReadCount(blog.getReadCount() + 1);
 		blogService.update(blog);
@@ -101,6 +106,7 @@ public class PageController {
 
 	@RequestMapping("/navigator")
 	public ModelAndView navigator() {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);
 		List<Category> categories = categoryService.findAll();
 		List<Blog> blogs = blogService.findAll();
 
@@ -184,6 +190,7 @@ public class PageController {
 
 	@RequestMapping("/content")
 	public ModelAndView content(@RequestParam(value = "categoryid", required = false) Integer categoryid, @RequestParam(value = "createdate", required = false) String createdate) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);		
 		Category category = null;
 		String createDate = null;
 		if (categoryid != null && categoryid != 0) {

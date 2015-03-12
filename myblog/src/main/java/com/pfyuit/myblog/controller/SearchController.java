@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pfyuit.myblog.datasource.DynamicDataSourceContextHolder;
 import com.pfyuit.myblog.domain.Blog;
 import com.pfyuit.myblog.dto.BlogDto;
 import com.pfyuit.myblog.dto.builder.BlogDtoBuilder;
@@ -27,6 +28,7 @@ public class SearchController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView search(String key) {
+		DynamicDataSourceContextHolder.setDataSource(DynamicDataSourceContextHolder.DATA_SOURCE_SLAVE_TYPE);
 		List<Integer> blogIds = null;
 		try {
 			blogIds = searchService.searchBlog(key);
