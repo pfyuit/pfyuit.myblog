@@ -39,19 +39,19 @@
 		</c:forEach>
 	</div>
 
-	<div class="list-group">
-		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;评论排行</a>
-		<c:forEach var="comment" items="${comments}">
-			<a href="${contextPath}/viewblog.html?blogid=${comment.blogid}" class="list-group-item">${comment.title} (${comment.commentCount})</a>
-		</c:forEach>
-	</div>
+<!-- 	<div class="list-group"> -->
+<!-- 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;评论排行</a> -->
+<%-- 		<c:forEach var="comment" items="${comments}"> --%>
+<%-- 			<a href="${contextPath}/viewblog.html?blogid=${comment.blogid}" class="list-group-item">${comment.title} (${comment.commentCount})</a> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</div> -->
 
-	<div class="list-group">
-		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-link"></span>&nbsp;项目链接</a>
-		<c:forEach var="link" items="${links}">
-			<a href="${link.url}" class="list-group-item">${link.name}</a>
-		</c:forEach>
-	</div>
+<!-- 	<div class="list-group"> -->
+<!-- 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-link"></span>&nbsp;项目链接</a> -->
+<%-- 		<c:forEach var="link" items="${links}"> --%>
+<%-- 			<a href="${link.url}" class="list-group-item">${link.name}</a> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</div> -->
 
 </body>
 </html>

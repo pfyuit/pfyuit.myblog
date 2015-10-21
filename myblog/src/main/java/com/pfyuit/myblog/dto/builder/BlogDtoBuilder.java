@@ -1,6 +1,8 @@
 package com.pfyuit.myblog.dto.builder;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.pfyuit.myblog.domain.Blog;
@@ -32,6 +34,13 @@ public class BlogDtoBuilder {
 			BlogDto blogDto = buildBlogDto(blog);
 			blogDtos.add(blogDto);
 		}
+
+		Collections.sort(blogDtos, new Comparator<BlogDto>() {
+			@Override
+			public int compare(BlogDto o1, BlogDto o2) {
+				return o2.getBlogid() - o1.getBlogid();
+			}
+		});
 		return blogDtos;
 	}
 
