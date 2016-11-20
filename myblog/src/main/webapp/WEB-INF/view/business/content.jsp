@@ -11,7 +11,7 @@
 <meta name="author" content="">
 <title></title>
 </head>
-<body>
+<body style="zoom:1.5;-moz-transform:scale(1.5);-moz-transform-origin:top left;">
 	<c:if test="${not empty message}">
 		<blockquote>
 			<font size="3px" class="text-success">${message}</font> <br />

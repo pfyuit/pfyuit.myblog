@@ -11,7 +11,7 @@
 <meta name="author" content="">
 <title></title>
 </head>
-<body>
+<body style="zoom:1.5;-moz-transform:scale(1.5);-moz-transform-origin:top left;">
 
 	<p>
 		<b>${blog.title}</b> <br /> ${blog.createDate}&nbsp;&nbsp;&nbsp;阅读(${blog.readCount})&nbsp;&nbsp;&nbsp;评论(${blog.commentCount})&nbsp;&nbsp;&nbsp;

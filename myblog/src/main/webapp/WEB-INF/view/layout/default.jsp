@@ -41,7 +41,7 @@
 
 </head>
 
-<body>
+<body style="zoom:1.5;-moz-transform:scale(1.5);-moz-transform-origin:top left;">
 	<div class="navbar navbar-inverse" role="navigation">
 		<div class="container">
 			<div class="navbar-header">

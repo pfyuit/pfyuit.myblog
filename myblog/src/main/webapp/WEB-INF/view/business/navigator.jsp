@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 </head>
-<body>
+<body style="zoom:1.5;-moz-transform:scale(1.5);-moz-transform-origin:top left;">
 
 	<div class="list-group">
 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-tags"></span>&nbsp;文章分类</a>
