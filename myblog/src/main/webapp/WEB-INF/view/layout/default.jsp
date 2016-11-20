@@ -109,12 +109,12 @@
 			</div>
 		</div>
 
-		<hr>
-		<footer>
-			<p>
-				Powered by Myblog by <a href="mailto:pfyuit@gmail.com">pfyuit@gmail.com</a>. All rights reserved.
-			</p>
-		</footer>
+<!-- 		<hr> -->
+<!-- 		<footer> -->
+<!-- 			<p> -->
+<!-- 				Powered by Myblog by <a href="mailto:pfyuit@gmail.com">pfyuit@gmail.com</a>. All rights reserved. -->
+<!-- 			</p> -->
+<!-- 		</footer> -->
 	</div>
 
 </body>

@@ -25,19 +25,19 @@
 		<input type="submit" class="btn btn-success" value="搜索博客"></input>
 	</form>
 
-	<div class="list-group">
-		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a>
-		<c:forEach var="archive" items="${archives}">
-			<a href="${contextPath}/content.html?createdate=${archive.month}" class="list-group-item">${archive.month} (${archive.blogCount})</a>
-		</c:forEach>
-	</div>
+<!-- 	<div class="list-group"> -->
+<!-- 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-time"></span>&nbsp;文章归档</a> -->
+<%-- 		<c:forEach var="archive" items="${archives}"> --%>
+<%-- 			<a href="${contextPath}/content.html?createdate=${archive.month}" class="list-group-item">${archive.month} (${archive.blogCount})</a> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</div> -->
 
-	<div class="list-group">
-		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-book"></span>&nbsp;阅读排行</a>
-		<c:forEach var="read" items="${reads}">
-			<a href="${contextPath}/viewblog.html?blogid=${read.blogid}" class="list-group-item">${read.title} (${read.count})</a>
-		</c:forEach>
-	</div>
+<!-- 	<div class="list-group"> -->
+<!-- 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-book"></span>&nbsp;阅读排行</a> -->
+<%-- 		<c:forEach var="read" items="${reads}"> --%>
+<%-- 			<a href="${contextPath}/viewblog.html?blogid=${read.blogid}" class="list-group-item">${read.title} (${read.count})</a> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</div> -->
 
 <!-- 	<div class="list-group"> -->
 <!-- 		<a href="#" class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;评论排行</a> -->
