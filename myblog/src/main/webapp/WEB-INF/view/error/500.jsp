@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="zoom:0.9;-moz-transform:scale(0.9);-moz-transform-origin:top left;">
 
    <div class="container-fluid">
       <div class="page-header">

@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 <title></title>
 </head>
-<body style="zoom:1.5;-moz-transform:scale(1.5);-moz-transform-origin:top left;">
+<body style="zoom:0.9;-moz-transform:scale(0.9);-moz-transform-origin:top left;">
 	<div class="jumbotron">
 		<h3>关于博主</h3>
 		<p>博主是一名普通的软件攻城狮，工作之余爱倒腾一些新鲜技术，热爱开源。可以访问博主的<a href="https://github.com/pfyuit">GitHub页面</a>，欢迎多提意见，多多交流。</p>
