@@ -7,8 +7,8 @@ public class BlogUtils {
 	public static String getAbstract(String content) {
 		String result = "";
 		content = Jsoup.parse(content).text();
-		if (content.length() > 500) {
-			result = content.substring(0, 500) + "...";
+		if (content.length() > 200) {
+			result = content.substring(0, 200) + "...";
 		} else {
 			result = content;
 		}
